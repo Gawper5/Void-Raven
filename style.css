@@ -1,0 +1,23 @@
+body {
+    background-image: url("./assets/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#game {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+canvas {
+    border: 1px solid white; 
+    background-image: url("./assets/bg.png")
+}
+
+@font-face {
+    font-family: "Arcade";
+    src: url('./assets/ARCADECLASSIC.TTF');
+}
