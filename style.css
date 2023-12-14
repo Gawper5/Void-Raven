@@ -20,4 +20,6 @@ canvas {
 @font-face {
     font-family: "Arcade";
     src: url('./assets/ARCADECLASSIC.TTF');
+    font-weight: normal;
+    font-style: normal;
 }

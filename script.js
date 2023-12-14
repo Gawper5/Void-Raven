@@ -539,7 +539,7 @@ window.addEventListener("load", function() {
 
     let scale = canvas.width / 700
     let refresh = 1000 / 60
-    let proccesdelay = 5 //^ ms = 1tick
+    let proccesdelay = 7 //^ ms = 1tick
     const reloadtime = 1000 / proccesdelay //^ ticks; 1tick = 5ms
 
     let file = JSON.parse(localStorage.getItem("Score"))
@@ -628,7 +628,27 @@ window.addEventListener("load", function() {
         ent: new Entity(document.getElementById("boom"), scale, 0.25),
         pos: []
     }
-    
+    let refreshtimer = 0;
+    function animate(){
+        if(states.menu) {
+            displayMenu()
+        }
+        else if(!states.gameover) { 
+            clear()
+            displayPlayers()
+            displayEnemies()
+            displayShooting()
+            displayBoom()
+            displayShield()
+            displayHp()
+            displayScore()
+            if(states.pause)
+                displayPause()
+        }
+        else {
+            displayGameOver()
+        }
+    }
     setInterval(() => {
         if(!states.gameover && !states.menu && !states.pause) {
             if(healthbar.hp == 0) {
@@ -666,25 +686,9 @@ window.addEventListener("load", function() {
                     counter2++
             }
         }
+        if(refreshtimer * proccesdelay >= refresh){
+            animate()
+        }
+        refreshtimer++
     }, proccesdelay)
-    setInterval(() => {
-        if(states.menu) {
-            displayMenu()
-        }
-        else if(!states.gameover) { 
-            clear()
-            displayPlayers()
-            displayEnemies()
-            displayShooting()
-            displayBoom()
-            displayShield()
-            displayHp()
-            displayScore()
-            if(states.pause)
-                displayPause()
-        }
-        else {
-            displayGameOver()
-        }
-    }, refresh)
 })
