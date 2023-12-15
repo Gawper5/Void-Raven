@@ -398,8 +398,8 @@ window.addEventListener("load", function() {
         shot1 = true
         shot2 = true
         shote = true
-        enemy.reloadtimee = 2000 / proccesdelay
-        enemy.movecooldown = 750 / proccesdelay
+        enemy.reloadtimee = 2000 / refresh
+        enemy.movecooldown = 600 / refresh
         level.lvl = 1
         bullet1.pos.splice(0, bullet1.pos.length)
         bullet2.pos.splice(0, bullet2.pos.length)
@@ -538,9 +538,8 @@ window.addEventListener("load", function() {
     }
 
     let scale = canvas.width / 700
-    let refresh = 1000 / 60
-    let proccesdelay = 7 //^ ms = 1tick
-    const reloadtime = 1000 / proccesdelay //^ ticks; 1tick = 5ms
+    let refresh = 1000 / 75
+    const reloadtime = 1000 / refresh //^ ticks; 1tick = 5ms
 
     let file = JSON.parse(localStorage.getItem("Score"))
     if(file == null) {
@@ -589,26 +588,26 @@ window.addEventListener("load", function() {
 
     let menubg = new Entity(document.getElementById("menubg"), scale, 1)
     let player1 = new Player(document.getElementById("player1"), scale, 0.2)
-    player1.speed = 0.5
+    player1.speed = 0.1 * refresh
     let bullet1 = {
         ent: new Entity(document.getElementById("bullet1"), scale, 0.0275),
         pos: []
     }
-    bullet1.ent.speed = 1
+    bullet1.ent.speed = 0.15 * refresh
 
     let player2 = new Player(document.getElementById("player2"), scale, 0.2)
-    player2.speed = 0.5
+    player2.speed = 0.1 * refresh
     let bullet2 = {
         ent: new Entity(document.getElementById("bullet2"), scale, 0.0275),
         pos: []
     }
-    bullet2.ent.speed = 1
+    bullet2.ent.speed = 0.15 * refresh
 
     let enemy = {
         ent: new Entity(document.getElementById("enemy"), scale, 0.15),
         grid: new Array(11),
-        reloadtimee: 2000 / proccesdelay, //^ ticks
-        movecooldown: 750 / proccesdelay, //^ ticks
+        reloadtimee: 2000 / refresh, //^ ticks
+        movecooldown: 600 / refresh, //^ ticks
         offset: {offsetR: 0, offsetL: 0, offsetBot: 0}
     }
     enemy.ent.speed = 10
@@ -622,13 +621,12 @@ window.addEventListener("load", function() {
         ent: new Entity(document.getElementById("bullete"), scale, 0.05),
         pos: []
     }
-    bullete.ent.speed = 1
+    bullete.ent.speed = 0.15 * refresh
 
     let boom = {
         ent: new Entity(document.getElementById("boom"), scale, 0.25),
         pos: []
     }
-    let refreshtimer = 0;
     function animate(){
         if(states.menu) {
             displayMenu()
@@ -668,7 +666,7 @@ window.addEventListener("load", function() {
             playersShooting()
             clearBoom()
             enemiesShooting()
-            if(movecounter % enemy.movecooldown == 0 && movecounter != 0) {
+            if(movecounter >= enemy.movecooldown && movecounter != 0) {
                 moveEnemies(enemy, level)
                 movecounter = 0
             }
@@ -686,9 +684,6 @@ window.addEventListener("load", function() {
                     counter2++
             }
         }
-        if(refreshtimer * proccesdelay >= refresh){
-            animate()
-        }
-        refreshtimer++
-    }, proccesdelay)
+        animate()
+    }, refresh)
 })
