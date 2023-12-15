@@ -10,10 +10,10 @@ export function hasIntersection(r1, r2) {
 }
 
 export function move(player) {
-    if((player.direction.Down && (player.direction.Right || player.direction.Left)) || (player.direction.Up && (player.direction.Right || player.direction.Left))) {
+    if((player.direction.Down && ((player.direction.Right && !player.direction.Left) || (!player.direction.Right && player.direction.Left))) || (player.direction.Up && ((player.direction.Right && !player.direction.Left) || (!player.direction.Right && player.direction.Left)))) {
         let diagspeed = Math.sqrt(Math.pow(player.speed * player.scale, 2)/2)
         if(player.direction.Down && player.pos.y + diagspeed <= canvas.height - player.size.h) player.pos.y += diagspeed
-        else if(player.direction.Down) player.pos.y += canvas.height - (player.pos.y + player.size.h)
+        else if(player.direction.Down) player.pos.y += canvas.height - player.pos.y - player.size.h
         if(player.direction.Up && player.pos.y - diagspeed >= player.upperlimit) player.pos.y -= diagspeed
         else if(player.direction.Up) player.pos.y = player.upperlimit
         if(player.direction.Right && player.pos.x + diagspeed <= canvas.width - player.size.w) player.pos.x += diagspeed
