@@ -65,8 +65,8 @@ export function spawnNewIfAllDead(enemy) {
 }
 
 export function moveEnemies(enemy, level) {
-    enemy.movecooldown = Math.floor(100 - (level.lvl * 0.2))
-    enemy.reloadtimee = Math.floor(300 - (level.lvl * 0.2))
+    enemy.movecooldown = Math.floor(100 - (level.lvl * 0.4))
+    enemy.reloadtimee = Math.floor(300 - (level.lvl * 0.4))
     if(enemy.movecooldown < 5)
         enemy.movecooldown = 5
     if(enemy.reloadtimee < 5)
