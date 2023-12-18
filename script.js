@@ -182,7 +182,7 @@ window.addEventListener("load", function() {
         if(bullet1.pos.length != 0) {
             if(bullet1.pos.length != 0) {
                 for(let element of bullet1.pos) {
-                    moveBullet(element, bullet1.ent.speed, "Up")
+                    moveBullet(element, bullet1.ent.speed, "Up", scale)
 
                     if(bullet1.pos[0].y < 0) {
                         bullet1.pos.shift()
@@ -246,7 +246,7 @@ window.addEventListener("load", function() {
             if(bullet2.pos.length != 0) {
                 if(bullet2.pos.length != 0) {
                     for(let element of bullet2.pos) {
-                        moveBullet(element, bullet2.ent.speed, "Up")
+                        moveBullet(element, bullet2.ent.speed, "Up", scale)
     
                         if(bullet2.pos[0].y < 0) { 
                             bullet2.pos.shift()
@@ -320,10 +320,11 @@ window.addEventListener("load", function() {
         if(bullete.pos.length != 0) {
             if(bullete.pos.length != 0) {
                 for (let element of bullete.pos) {
-                    moveBullet(element, bullete.ent.speed, "Down")
+                    moveBullet(element, bullete.ent.speed, "Down", scale)
                 }
-                if(bullete.pos[0].y > canvas.height) {
-                    bullete.pos.shift()
+                if(bullete.pos[0].y > canvas.height / scale) {
+
+                    console.log(bullete.pos.shift())
                 }
             }
             for(let element of bullete.pos) {
@@ -398,8 +399,8 @@ window.addEventListener("load", function() {
         shot1 = true
         shot2 = true
         shote = true
-        enemy.reloadtimee = 2000 / refresh
-        enemy.movecooldown = 600 / refresh
+        enemy.reloadtimee = 250
+        enemy.movecooldown = 100
         level.lvl = 1
         bullet1.pos.splice(0, bullet1.pos.length)
         bullet2.pos.splice(0, bullet2.pos.length)
@@ -606,8 +607,8 @@ window.addEventListener("load", function() {
     let enemy = {
         ent: new Entity(document.getElementById("enemy"), scale, 0.15),
         grid: new Array(11),
-        reloadtimee: 2000 / refresh, //^ ticks
-        movecooldown: 600 / refresh, //^ ticks
+        reloadtimee: 250, //^ ticks
+        movecooldown: 100, //^ ticks
         offset: {offsetR: 0, offsetL: 0, offsetBot: 0}
     }
     enemy.ent.speed = 10

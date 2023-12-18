@@ -33,13 +33,13 @@ export function move(player) {
     }
 }
 
-export function moveBullet(bullet, speed, direction) {
+export function moveBullet(bullet, speed, direction, scale) {
     if(direction == "Up"){
         if(bullet.y >= 0)
             bullet.y -= speed
     }
     else if(direction == "Down"){
-        if(bullet.y <= canvas.height)
+        if(bullet.y <= canvas.height / scale)
             bullet.y += speed
     }
 }
@@ -65,8 +65,8 @@ export function spawnNewIfAllDead(enemy) {
 }
 
 export function moveEnemies(enemy, level) {
-    enemy.movecooldown = Math.floor(100 - (level.lvl * 0.4))
-    enemy.reloadtimee = Math.floor(300 - (level.lvl * 0.4))
+    enemy.movecooldown = Math.floor(100 - (level.lvl * 1))
+    enemy.reloadtimee = Math.floor(250 - (level.lvl * 1))
     if(enemy.movecooldown < 5)
         enemy.movecooldown = 5
     if(enemy.reloadtimee < 5)
