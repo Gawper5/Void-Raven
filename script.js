@@ -454,8 +454,10 @@ window.addEventListener("load", function() {
             states.option = true
         }
         else if(!states.gameover) {
-            if(event.code == "Escape")
+            if(event.code == "Escape"){
                 states.pause = !states.pause
+                hover = 0
+            }
         }
     })
 
